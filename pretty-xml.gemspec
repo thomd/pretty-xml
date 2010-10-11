@@ -13,10 +13,12 @@ Gem::Specification.new do |s|
   s.description = %q{Pretty print XML depends upon Nokogiri to perform XML transformation.}
   s.executables = ["xmlfo"]
   s.extra_rdoc_files = [
-    "README"
+    "README.md"
   ]
   s.files = [
-    "README",
+    "README.md",
+     "Rakefile",
+     "bin/xmlfo",
      "lib/pretty-xml.rb",
      "pretty-xml.gemspec"
   ]
