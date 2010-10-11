@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'optparse'
+require 'pretty-xml'
+
+include PrettyXML
+
+
+# default options
+options = {:all => false, :postfix => "fo"}
+
+
+# options parser
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: " + __FILE__ + " [-a] [-p postfix] <filename>"
+  opts.separator ""
+  
+  opts.on("-a", "--all", "Format all xml files in the current directory") do
+    options[:all] = true
+  end
+  
+  opts.on("-p [postfix]", "--postfix [postfix]", String, "Append a postfix to the output filename", "Default: #{options[:postfix]}") do |postfix|
+    if postfix.nil? then
+      opts.parse(["-h"])
+      exit 1
+    end
+    options[:postfix] = postfix
+  end
+end
+opts.parse!
+
+
+# get filename from commandline
+if (ARGV.length == 1 && options[:all] == true) || (ARGV.length == 0 && options[:all] == false) || ARGV.length > 1
+  opts.parse(["-h"]) 
+  exit 1 
+end
+filename = ARGV[0]
+
+
+# read xml file, format it and write to postfixed file
+def format!(file, options)
+  xml = File.read(file)
+  File.open(file.gsub(/^(.+)(\.xml)$/,'\1_'+options[:postfix]+'\2'), 'w') do |f|
+    f.write PrettyXML::write xml
+  end
+end
+
+
+if(options[:all]) then
+  Dir["*.xml"].each do |file|
+    puts file
+    format!(file, options)
+  end
+else
+  format!(filename, options)
+end
+
+
+
+
+
