@@ -13,7 +13,7 @@ options = {:all => false, :postfix => "fo"}
 
 # options parser
 opts = OptionParser.new do |opts|
-  opts.banner = "Usage: " + __FILE__ + " [-a] [-p postfix] <filename>"
+  opts.banner = "Usage: " + File.basename($0) + " [-a] [-p postfix] <filename>"
   opts.separator ""
   
   opts.on("-a", "--all", "Format all xml files in the current directory") do

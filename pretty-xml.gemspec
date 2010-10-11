@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
-    "README.md",
+    ".gitignore",
+     "README.md",
      "Rakefile",
      "bin/xmlfo",
      "lib/pretty-xml.rb",
