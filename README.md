@@ -10,27 +10,30 @@ Installation
 
 Use [jewelers][1] build in functionality to generate `*.gemspec` files and install gem with
 
-    rake install
+    rake gemspec
+    sudo rake install
     
 Check `rake -T` for more commands.
     
 Usage
 -----
 
-Format _all_ xml-files found within the current directory and append a _default_-postfix `_fo` (as an abreviation of _formatted_) to the output filename (e.g. a file `input.xml` becomes `input_fo.xml`):
+Format _all_ xml-files found within the current directory and append a _default_-postfix `_fo` (as an abreviation of _formatted_) to the output filename  
+(e.g. a file _input.xml_ becomes _input_fo.xml_):
 
     xmlfo -a
 
-Format _all_ xml-files found within the current directory and append a postfix `_postfix` to the output filename (e.g. a file `input.xml` becomes `input_postfix.xml`):
+Format _all_ xml-files found within the current directory and append a postfix `_postfix` to the output filename  
+(e.g. a file _input.xml_ becomes _input_postfix.xml_):
 
     xmlfo -a -p postfix
     xmlfo -ap postfix
 
-Format the file `input.xml` only and append the default-postfix `_fo` to the output filename:
+Format the file _input.xml_ only and append the default-postfix `_fo` to the output filename:
 
     xmlfo <input.xml>
 
-Format the file `input.xml` only and append a postfix `_postfix` to the output filename:
+Format the file _input.xml_ only and append a postfix `_postfix` to the output filename:
 
     xmlfo -p postfix <input.xml>
     
