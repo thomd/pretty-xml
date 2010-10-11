@@ -49,11 +49,15 @@ end
 
 
 if(options[:all]) then
+
+  # loop through all xml files within the current directory and format. Exclude already formatted xml-files
   Dir["*.xml"].each do |file|
-    puts file
+    break if file.match('_'+options[:postfix]+'\.xml$')
     format!(file, options)
   end
 else
+  
+  # format the given xml-file only
   format!(filename, options)
 end
 
