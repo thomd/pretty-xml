@@ -43,7 +43,7 @@ filename = ARGV[0]
 def format!(file, options)
   xml = File.read(file)
   File.open(file.gsub(/^(.+)(\.xml)$/,'\1_'+options[:postfix]+'\2'), 'w') do |f|
-    f.write PrettyXML::write xml
+    f.write PrettyXML::write(xml)
   end
 end
 
