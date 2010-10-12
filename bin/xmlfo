@@ -4,21 +4,22 @@ require 'rubygems'
 require 'optparse'
 require 'pretty-xml'
 
+# use [pretty-xml][1] for formatting xml files
 include PrettyXML
 
 
-# these are the default options:
+# These are the default options:
 #
-# * `:all` do not format all xml files
-# * `:postfix` append a `_fo` postfix
+# 1. `:all` do not format all xml files.
+# 2. `:postfix` append a `_fo` postfix.
 options = {:all => false, :postfix => "fo"}
 
 
 #### parse options from command line
 
-# options parser. 
-# save option values in `options` hash.  
-# show help if `--postfix` option is set without a given postfix
+# The options parser.   
+# Save option values in `options` hash.  
+# Show help if `--postfix` option is set without a given postfix.
 opts = OptionParser.new do |opts|
   opts.banner = "Usage: " + File.basename($0) + " [-a] [-p postfix] <filename>"
   opts.separator ""
@@ -40,21 +41,22 @@ opts.parse!
 
 #### get filename from commandline
 
-# show help, if
+# show help,
 # 
-# * a filename is given together with a set `--all` option,
-# * wether a filename ist given nor the `--all` option is set,
-# * more than two arguments are given
+# 1. if a filename is given together with a set `--all` option,
+# 2. if wether a filename ist given nor the `--all` option is set,
+# 3. if more than two arguments are given
 if (ARGV.length == 1 && options[:all] == true) || (ARGV.length == 0 && options[:all] == false) || ARGV.length > 1
   opts.parse(["-h"]) 
   exit 1 
 end
 filename = ARGV[0]
 
-#### format an xml-file and write to file.
+#### format a xml-file and write it to a new file.
 
-# this function reads a xml file, formats it using [pretty-xml][1] and writes to postfixed file
-# This is the central function.
+# This is the central function:  
+# Read a xml file, format it using [pretty-xml][1] and write a new file with
+# a postfix appended to the source filename
 #
 # [1]: http://github.com/thomd/pretty-xml/blob/master/lib/pretty-xml.rb
 def format!(file, options)
@@ -67,19 +69,17 @@ end
 #### format all files or just a single file?
 
 #
-# if `--all` option is set, loop through all xml files within the current directory and format each.
-#   exclude all xml files which were already formatted (by filtering the `:postfix` pattern)
+# If the `--all` option is set, loop through all xml files within the current 
+# directory and format each. Exclude all xml files which were already formatted 
+# by filtering all files already containing the `:postfix` pattern
 # 
 # if no `--all` option is given, format the given filename only.
 if(options[:all]) then
-
   Dir["*.xml"].each do |file|
     break if file.match('_'+options[:postfix]+'\.xml$')
     format!(file, options)
   end
 else
-  
-  # format the given xml-file only
   format!(filename, options)
 end
 

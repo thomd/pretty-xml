@@ -14,6 +14,10 @@ Use [jewelers][1] build in functionality to generate `*.gemspec` files and insta
     sudo rake install
     
 Check `rake -T` for more commands.
+
+Use [rocco][2] for generating a rocco-prepared documentation of the `xmlfo` script:
+
+    rokko bin/xmlfo
     
 Usage
 -----
@@ -38,5 +42,8 @@ Format the file _input.xml_ only and append a postfix `_postfix` to the output f
     xmlfo -p postfix <input.xml>
     
 
+
     
 [1]: http://github.com/technicalpickles/jeweler  "Jeweler at Github"
+[2]: http://rtomayko.github.com/rocco/  "Rocco at Github"
+
