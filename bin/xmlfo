@@ -7,11 +7,18 @@ require 'pretty-xml'
 include PrettyXML
 
 
-# default options
+# these are the default options:
+#
+# * `:all` do not format all xml files
+# * `:postfix` append a `_fo` postfix
 options = {:all => false, :postfix => "fo"}
 
 
-# options parser
+#### parse options from command line
+
+# options parser. 
+# save option values in `options` hash.  
+# show help if `--postfix` option is set without a given postfix
 opts = OptionParser.new do |opts|
   opts.banner = "Usage: " + File.basename($0) + " [-a] [-p postfix] <filename>"
   opts.separator ""
@@ -31,15 +38,25 @@ end
 opts.parse!
 
 
-# get filename from commandline
+#### get filename from commandline
+
+# show help, if
+# 
+# * a filename is given together with a set `--all` option,
+# * wether a filename ist given nor the `--all` option is set,
+# * more than two arguments are given
 if (ARGV.length == 1 && options[:all] == true) || (ARGV.length == 0 && options[:all] == false) || ARGV.length > 1
   opts.parse(["-h"]) 
   exit 1 
 end
 filename = ARGV[0]
 
+#### format an xml-file and write to file.
 
-# read xml file, format it and write to postfixed file
+# this function reads a xml file, formats it using [pretty-xml][1] and writes to postfixed file
+# This is the central function.
+#
+# [1]: http://github.com/thomd/pretty-xml/blob/master/lib/pretty-xml.rb
 def format!(file, options)
   xml = File.read(file)
   File.open(file.gsub(/^(.+)(\.xml)$/,'\1_'+options[:postfix]+'\2'), 'w') do |f|
@@ -47,10 +64,15 @@ def format!(file, options)
   end
 end
 
+#### format all files or just a single file?
 
+#
+# if `--all` option is set, loop through all xml files within the current directory and format each.
+#   exclude all xml files which were already formatted (by filtering the `:postfix` pattern)
+# 
+# if no `--all` option is given, format the given filename only.
 if(options[:all]) then
 
-  # loop through all xml files within the current directory and format. Exclude already formatted xml-files
   Dir["*.xml"].each do |file|
     break if file.match('_'+options[:postfix]+'\.xml$')
     format!(file, options)

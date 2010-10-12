@@ -8,10 +8,9 @@ Gem::Specification.new do |s|
   s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.date = %q{2010-10-11}
-  s.default_executable = %q{xmlfo}
+  s.date = %q{2010-10-12}
   s.description = %q{Pretty print XML depends upon Nokogiri to perform XML transformation.}
-  s.executables = ["xmlfo"]
+  s.executables = ["xmlfo", "xmlfo.html"]
   s.extra_rdoc_files = [
     "README.md"
   ]
