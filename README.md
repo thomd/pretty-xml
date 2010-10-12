@@ -17,7 +17,7 @@ Check `rake -T` for more commands.
 
 Use [rocco][2] for generating a rocco-prepared documentation of the `xmlfo` script:
 
-    rokko bin/xmlfo
+    rocco bin/xmlfo
     
 Usage
 -----
